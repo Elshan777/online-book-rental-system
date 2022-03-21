@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-      <h2>New track</h2>
+      <h2>Add New Book</h2>
       <div class="center">
         <form 
         {{-- action="{{ route('projects.tracks.store', $project->id )}}" --}}
