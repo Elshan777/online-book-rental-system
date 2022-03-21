@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('books');
+    return view('welcome');
+});
+
+Route::get('/books', function () {
+    return view('books.books');
+});
+
+Route::get('/books/create', function () {
+    return view('books.create');
 });
