@@ -18,12 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/books', function () {
-    return view('books.books');
-});
+// Route::get('/books', function () {
+//     return view('books.books');
+// });
 
-Route::get('/books/create', function () {
-    return view('books.create');
-});
+// Route::get('/books/create', function () {
+//     return view('books.create');
+// });
 
 Route::resource('books', BookController::class);

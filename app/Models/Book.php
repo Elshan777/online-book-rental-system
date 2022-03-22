@@ -11,8 +11,4 @@ class Book extends Model
 
     protected $fillable = [ 'title', 'authors', 'description', 'released_at', 'pages',
      'image_url', 'language_code', 'isbn', 'in_stock' ];
-
-    // public function tracks() {
-    //     return $this->hasMany(Book::class);
-    // }
 }

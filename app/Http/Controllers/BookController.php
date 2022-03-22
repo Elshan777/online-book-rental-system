@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\BookRequests;
+use Illuminate\Http\Request;
+
+// use App\Http\Requests\BookRequests;
 
 class BookController extends Controller
 {
@@ -15,8 +17,9 @@ class BookController extends Controller
     public function index()
     {
         //
-        $books = Book::all();
-        return view('books.books');
+        // $books = Book::all();
+        $data['book'] = Book::orderBy('id')->paginate(5);
+        return view('books.index', $data);
     }
 
     /**
@@ -36,12 +39,35 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
         //
-        $validated_data = $request->validated();
-        $book = Book::create($validated_data);
-        return view('books.books');
+        // $validated_data = $request->validated();
+        // $book = Book::create($validated_data);
+        $request->validate([
+            'title' => 'required',
+            'authors' => 'required',
+            'isbn' => 'required',
+            'image_url' => 'nullable',
+            'pages' => 'required',
+            'language_code' => 'nullable',
+            'in_stock' => 'required',
+            'description' => 'nullable',
+            'released_at' => 'nullable'
+        ]);
+        $book = new Book;
+        $book->title = $request->title;
+        $book->authors = $request->authors;
+        $book->isbn = $request->isbn;
+        $book->image_url = $request->image_url;
+        $book->pages = $request->pages;
+        $book->language_code = $request->language_code;
+        $book->description = $request->description;
+        $book->in_stock = $request->in_stock;
+        $book->released_at = $request->released_at;
+        $book->save();
+
+        return redirect()->route('books.index')->with('success','Book has been added successfully.');
     }
 
     /**
