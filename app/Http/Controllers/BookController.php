@@ -18,7 +18,7 @@ class BookController extends Controller
     {
         //
         // $books = Book::all();
-        $data['book'] = Book::orderBy('id')->paginate(5);
+        $data['books'] = Book::orderBy('id')->paginate(5);
         return view('books.index', $data);
     }
 
