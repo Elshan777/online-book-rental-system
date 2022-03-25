@@ -26,4 +26,18 @@ Route::get('/', function () {
 //     return view('books.create');
 // });
 
-Route::resource('books', BookController::class);
+Route::resource('/books', BookController::class);
+
+
+// // books
+// Route::get('/books', [BookController::class, 'index'])->name('books.index');
+
+// Route::get('/books/{id}/show', [BookController::class, 'show'] )->name('books.show');
+
+// Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+// Route::post('books/create', [BookController::class, 'store'] )->name('books.store');
+
+// Route::get('/books/{id}/edit', [BookController::class, 'edit'] )->name('books.edit');
+// Route::put('/books/{id}', [BookController::class, 'update'] )->name('books.update');
+
+// Route::get('/books/1/tracks/create', [BookController::class, 'create_tracks']);
