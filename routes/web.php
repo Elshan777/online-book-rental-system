@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\BookSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::get('/', function () {
 // });
 
 Route::resource('/books', BookController::class);
+Route::get('/search', [BookSearchController::class, 'search'])->name('search');
+
 
 Route::resource('/genres', GenreController::class);
 
