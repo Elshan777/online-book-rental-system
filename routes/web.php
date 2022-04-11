@@ -28,11 +28,11 @@ Route::get('/', function () {
 //     return view('books.create');
 // });
 
-Route::resource('/books', BookController::class);
+Route::resource('/books', BookController::class)->middleware('auth');
 Route::get('/search', [BookSearchController::class, 'search'])->name('search');
 
 
-Route::resource('/genres', GenreController::class);
+Route::resource('/genres', GenreController::class)->middleware('auth');
 
 
 // // books

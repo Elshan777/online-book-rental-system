@@ -23,15 +23,19 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="{{ route('books.index') }}">Books</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="{{ route('books.create') }}">Add Books</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ route('books.create') }}">Add Books</a>
+                    </li>
+                @endauth
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="{{ route('genres.index') }}">Genres</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="{{ route('genres.create') }}">Add Genres</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ route('genres.create') }}">Add Genres</a>
+                    </li>
+                @endauth 
                 <li class="nav-item">
                   <a class="nav-link">About</a>
                 </li>
