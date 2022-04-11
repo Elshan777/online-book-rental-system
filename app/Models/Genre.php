@@ -10,4 +10,14 @@ class Genre extends Model
     use HasFactory;
     
     protected $fillable = [ 'name', 'style' ];
+
+    /**
+     * The books that belong to the Genre
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function books(): BelongsToMany
+    {
+        return $this->belongsToMany(Book::class, 'genre_book');
+    }
 }
