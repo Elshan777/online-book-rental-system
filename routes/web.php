@@ -47,3 +47,7 @@ Route::resource('/genres', GenreController::class);
 // Route::put('/books/{id}', [BookController::class, 'update'] )->name('books.update');
 
 // Route::get('/books/1/tracks/create', [BookController::class, 'create_tracks']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
