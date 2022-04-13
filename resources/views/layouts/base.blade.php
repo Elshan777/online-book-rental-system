@@ -33,7 +33,7 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="{{ route('genres.create') }}">Add Genres</a>
+                        <a class="nav-item nav-link" href="{{ route('genres.create') }}">Create New Genre</a>
                     </li>
                 @endauth 
                 <li class="nav-item">

@@ -104,7 +104,7 @@
 
 
             <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add new book</button>
+            <button type="submit" class="btn btn-primary">Update book</button>
             </div>
 
         </form>
