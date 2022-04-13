@@ -32,6 +32,7 @@ class GenrePolicy
     public function view(User $user, Genre $genre)
     {
         //
+        return true;
     }
 
     /**
@@ -43,6 +44,8 @@ class GenrePolicy
     public function create(User $user)
     {
         //
+        return $this->isLibrarian($user);
+
     }
 
     /**
@@ -55,6 +58,8 @@ class GenrePolicy
     public function update(User $user, Genre $genre)
     {
         //
+        return $this->isLibrarian($user);
+
     }
 
     /**
@@ -67,6 +72,8 @@ class GenrePolicy
     public function delete(User $user, Genre $genre)
     {
         //
+        return $this->isLibrarian($user);
+
     }
 
     /**
@@ -79,6 +86,8 @@ class GenrePolicy
     public function restore(User $user, Genre $genre)
     {
         //
+        return $this->isLibrarian($user);
+
     }
 
     /**
@@ -91,5 +100,12 @@ class GenrePolicy
     public function forceDelete(User $user, Genre $genre)
     {
         //
+        return $this->isLibrarian($user);
+
+    }
+
+    private function isLibrarian(User $user)
+    {
+        return $user->is_librarian == 1;
     }
 }

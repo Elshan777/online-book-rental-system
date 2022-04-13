@@ -25,7 +25,9 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="{{ route('books.create') }}">Add Books</a>
+                        @if  (Auth::user()->is_librarian())
+                            <a class="nav-item nav-link" href="{{ route('books.create') }}">Add Books</a>
+                        @endif
                     </li>
                 @endauth
                 <li class="nav-item">
@@ -33,7 +35,9 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="{{ route('genres.create') }}">Create New Genre</a>
+                        @if  (Auth::user()->is_librarian())
+                            <a class="nav-item nav-link" href="{{ route('genres.create') }}">Create New Genre</a>
+                        @endif
                     </li>
                 @endauth 
                 <li class="nav-item">
@@ -59,7 +63,7 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->name }} @if  (Auth::user()->is_librarian()) (ADMIN) @endif
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

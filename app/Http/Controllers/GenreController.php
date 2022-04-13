@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Genre::class, 'genre');
+    }
     /**
      * Display a listing of the resource.
      *

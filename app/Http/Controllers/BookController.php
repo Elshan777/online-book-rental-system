@@ -25,7 +25,7 @@ class BookController extends Controller
     {
         //
         // $books = Book::all();
-        $data['books'] = Book::orderBy('id')->paginate(5);
+        $data['books'] = Book::orderBy('id')->paginate(8);
         return view('books.index', $data);
     }
 
@@ -37,11 +37,7 @@ class BookController extends Controller
     public function create()
     {
         //
-        // $is_librarian = Auth::user().is_librarian();
-        // if($is_librarian) {
         return view('books.create');
-        // }
-        // return view('books.index');
     }
 
     /**
