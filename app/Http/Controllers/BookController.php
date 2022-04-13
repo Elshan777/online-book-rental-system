@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookFormRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 // use App\Http\Requests\BookRequests;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Book::class, 'book');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +37,11 @@ class BookController extends Controller
     public function create()
     {
         //
+        // $is_librarian = Auth::user().is_librarian();
+        // if($is_librarian) {
         return view('books.create');
+        // }
+        // return view('books.index');
     }
 
     /**
@@ -101,6 +111,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        $this->authorize('edit', $book);
         return view('books/edit', [
             'book' => $book
         ]);
