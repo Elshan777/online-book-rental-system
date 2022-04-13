@@ -20,4 +20,8 @@
         @csrf
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
+      <form action="{{ route('borrows.create_request') }}" method="GET">
+        <input type="hidden" name="book_id" required value="{{$book->id}}"/>
+        <button type="submit" class="btn btn-primary">Request For Borrowing</button>
+      </form>
 @endsection

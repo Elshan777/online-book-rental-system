@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookSearchController;
+use App\Http\Controllers\BorrowController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +32,13 @@ Route::get('/', function () {
 
 Route::resource('/books', BookController::class);
 Route::get('/search', [BookSearchController::class, 'search'])->name('search');
+Route::get('borrows.create_request', [BorrowController::class, 'create_request'])->name('borrows.create_request');
+Route::resource('/borrows', BorrowController::class);
+
 
 
 Route::resource('/genres', GenreController::class)->middleware('auth');
+// Route::resource('/borrows', BorrowController::class);
 
 
 Auth::routes();
