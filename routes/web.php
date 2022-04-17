@@ -31,8 +31,12 @@ Route::get('/', function () {
 // });
 
 Route::resource('/books', BookController::class);
+
 Route::get('/search', [BookSearchController::class, 'search'])->name('search');
 Route::get('/create_request', [BorrowController::class, 'create_request'])->name('create_request');
+Route::get('/approve', [BorrowController::class, 'approve'])->name('approve');
+Route::get('/reject', [BorrowController::class, 'reject'])->name('reject');
+
 Route::resource('/borrows', BorrowController::class);
 
 

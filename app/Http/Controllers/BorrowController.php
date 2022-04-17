@@ -72,21 +72,44 @@ class BorrowController extends Controller
     public function approve(Request $request)
     {
         # code...
-        error_log('incoming');
-        // $validated_data = $request->validated();
-        error_log('-----------Reader ID-----------');
-        error_log($request->book_id);
-        error_log('validated');
+        // error_log('incoming');
+        // // $validated_data = $request->validated();
+        // error_log('-----------Reader ID-----------');
+        // error_log($request->book_id);
+        // error_log('validated');
         
 
-        $borrow = new Borrow;
-        $borrow->reader_id = Auth::id();
-        $borrow->book_id = $request->book_id;
-        $borrow->request_processed_at = Carbon::now();
-        error_log($borrow);
-        $borrow->save();
+        // $borrow = new Borrow;
+        // $borrow->reader_id = Auth::id();
+        // $borrow->book_id = $request->book_id;
+        // $borrow->request_processed_at = Carbon::now();
         // error_log($borrow);
-        // $project = Borrow::create([$borrow]);
+        // $borrow->save();
+        // // error_log($borrow);
+        // // $project = Borrow::create([$borrow]);
+        error_log('approved');
+        return redirect()->route('books.show', $borrow->book_id);
+    }
+
+    public function reject(Request $request)
+    {
+        # code...
+        // error_log('incoming');
+        // // $validated_data = $request->validated();
+        // error_log('-----------Reader ID-----------');
+        // error_log($request->book_id);
+        // error_log('validated');
+        
+
+        // $borrow = new Borrow;
+        // $borrow->reader_id = Auth::id();
+        // $borrow->book_id = $request->book_id;
+        // $borrow->request_processed_at = Carbon::now();
+        // error_log($borrow);
+        // $borrow->save();
+        // // error_log($borrow);
+        // // $project = Borrow::create([$borrow]);
+        error_log('reject');
         return redirect()->route('books.show', $borrow->book_id);
     }
 
