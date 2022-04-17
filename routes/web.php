@@ -36,6 +36,7 @@ Route::get('/search', [BookSearchController::class, 'search'])->name('search');
 Route::get('/create_request', [BorrowController::class, 'create_request'])->name('create_request');
 Route::get('/approve', [BorrowController::class, 'approve'])->name('approve');
 Route::get('/reject', [BorrowController::class, 'reject'])->name('reject');
+Route::get('/return', [BorrowController::class, 'return'])->name('return');
 
 Route::resource('/borrows', BorrowController::class);
 

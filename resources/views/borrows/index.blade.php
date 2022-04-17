@@ -32,11 +32,11 @@
             <td scope="col"> 
               @if ( $borrow->status == 'PENDING' )
                 <form action="{{ route('approve') }}" method="GET">
-                  <input type="hidden" name="book_id" required value="{{$borrow->id}}"/>
+                  <input type="hidden" name="id" required value="{{$borrow->id}}"/>
                   <button type="submit" class="btn btn-success">Approve</button>
                 </form>
                 <form action="{{ route('reject') }}" method="GET">
-                  <input type="hidden" name="book_id" required value="{{$borrow->id}}"/>
+                  <input type="hidden" name="id" required value="{{$borrow->id}}"/>
                   <button type="submit" class="btn btn-danger">Reject</button>
                 </form>
               @endif

@@ -64,53 +64,34 @@ class BorrowController extends Controller
         $borrow->request_processed_at = Carbon::now();
         error_log($borrow);
         $borrow->save();
-        // error_log($borrow);
-        // $project = Borrow::create([$borrow]);
         return redirect()->route('books.show', $borrow->book_id);
     }
 
     public function approve(Request $request)
     {
         # code...
-        // error_log('incoming');
-        // // $validated_data = $request->validated();
-        // error_log('-----------Reader ID-----------');
-        // error_log($request->book_id);
-        // error_log('validated');
-        
-
-        // $borrow = new Borrow;
-        // $borrow->reader_id = Auth::id();
-        // $borrow->book_id = $request->book_id;
-        // $borrow->request_processed_at = Carbon::now();
-        // error_log($borrow);
-        // $borrow->save();
-        // // error_log($borrow);
-        // // $project = Borrow::create([$borrow]);
+        error_log('incoming');
+        error_log($request->id);
+        $borrow = Borrow::where('id', $request->id)->get();
+        error_log($borrow);
+        $borrow[0]->status = 'ACCEPTED';
+        error_log($borrow[0]);
+        $borrow[0]->save();
         error_log('approved');
-        return redirect()->route('books.show', $borrow->book_id);
+        return redirect()->route('borrows.index');
     }
 
     public function reject(Request $request)
     {
         # code...
-        // error_log('incoming');
-        // // $validated_data = $request->validated();
-        // error_log('-----------Reader ID-----------');
-        // error_log($request->book_id);
-        // error_log('validated');
-        
-
-        // $borrow = new Borrow;
-        // $borrow->reader_id = Auth::id();
-        // $borrow->book_id = $request->book_id;
-        // $borrow->request_processed_at = Carbon::now();
-        // error_log($borrow);
-        // $borrow->save();
-        // // error_log($borrow);
-        // // $project = Borrow::create([$borrow]);
-        error_log('reject');
-        return redirect()->route('books.show', $borrow->book_id);
+        error_log($request->id);
+        $borrow = Borrow::where('id', $request->id)->first();
+        error_log($borrow);
+        $borrow->status = 'REJECTED';
+        error_log($borrow);
+        $borrow->save();
+        error_log('rejected');
+        return redirect()->route('borrows.index');
     }
 
     // /**
