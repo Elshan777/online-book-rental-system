@@ -14,15 +14,18 @@ Use \Carbon\Carbon;
 
 class BorrowController extends Controller
 {
-    // /**
-    //  * Display a listing of the resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function index()
-    // {
-    //     //
-    // }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        $data['borrows'] = Borrow::orderBy('id')->paginate(8);
+        error_log($data['borrows'][0]['status ']);
+        return view('borrows.index', $data);
+    }
 
     // /**
     //  * Show the form for creating a new resource.
@@ -47,6 +50,27 @@ class BorrowController extends Controller
     //     // return redirect()->route('books.index');
     // }
     public function create_request(Request $request)
+    {
+        # code...
+        error_log('incoming');
+        // $validated_data = $request->validated();
+        error_log('-----------Reader ID-----------');
+        error_log($request->book_id);
+        error_log('validated');
+        
+
+        $borrow = new Borrow;
+        $borrow->reader_id = Auth::id();
+        $borrow->book_id = $request->book_id;
+        $borrow->request_processed_at = Carbon::now();
+        error_log($borrow);
+        $borrow->save();
+        // error_log($borrow);
+        // $project = Borrow::create([$borrow]);
+        return redirect()->route('books.show', $borrow->book_id);
+    }
+
+    public function approve(Request $request)
     {
         # code...
         error_log('incoming');

@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::resource('/books', BookController::class);
 Route::get('/search', [BookSearchController::class, 'search'])->name('search');
-Route::get('borrows.create_request', [BorrowController::class, 'create_request'])->name('borrows.create_request');
+Route::get('/create_request', [BorrowController::class, 'create_request'])->name('create_request');
 Route::resource('/borrows', BorrowController::class);
 
 

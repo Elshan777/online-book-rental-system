@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('reader_id');
             $table->unsignedBigInteger('book_id');
-            $table->enum('status ', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED'])->default('PENDING');
             $table->date('request_processed_at')->nullable();
             $table->unsignedBigInteger('request_managed_by')->nullable();
             $table->date('deadline')->nullable();

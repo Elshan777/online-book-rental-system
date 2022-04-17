@@ -13,8 +13,6 @@ class BookSearchController extends Controller
         // Get the search value from the request
         $search = $request->input('search');
 
-        error_log('Some message here.');
-
         // Search in the title and body columns from the posts table
         $data['books'] = Book::query()
             ->where('title', 'LIKE', "%{$search}%")

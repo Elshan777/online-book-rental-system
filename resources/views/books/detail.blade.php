@@ -2,7 +2,7 @@
 
 @section('content')
       <h2>{{ $book->title }}</h2>
-      <img src="{{ $book->image_url }}" class="img-thumbnail" width=400px" alt="book cover picture">
+      <img src="{{ $book->image_url }}" class="img-thumbnail" width="400px" alt="book cover picture">
       <p>Written by: {{ $book->authors }}</p>
       <p>{{ $book->description }}</p>
 
@@ -20,7 +20,7 @@
         @csrf
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
-      <form action="{{ route('borrows.create_request') }}" method="GET">
+      <form action="{{ route('create_request') }}" method="GET">
         <input type="hidden" name="book_id" required value="{{$book->id}}"/>
         <button type="submit" class="btn btn-primary">Request For Borrowing</button>
       </form>
