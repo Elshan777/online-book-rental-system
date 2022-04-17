@@ -94,6 +94,22 @@ class BorrowController extends Controller
         return redirect()->route('borrows.index');
     }
 
+    public function return(Request $request)
+    {
+        # code...
+        $user_id = Auth::id();
+        error_log($request->book_id);
+        $borrow = Borrow::where('reader_id', $user_id)->where('book_id', $request->book_id)->first();
+        $borrow->status = 'RETURNED';
+        error_log($borrow);
+        $borrow->save();
+        error_log('rejected');
+        return view('books/detail', [
+            'book' => $book,
+            'status' => $borrow->status
+        ]);
+    }
+
     // /**
     //  * Display the specified resource.
     //  *

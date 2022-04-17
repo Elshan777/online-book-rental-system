@@ -21,12 +21,13 @@
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
 
-      
-        @if ($status == 'PENDING' or $status == 'REJECTED')
+        @if ($status == Null)
         <form action="{{ route('create_request') }}" method="GET">
           <input type="hidden" name="book_id" required value="{{$book->id}}"/>
-          <button type="submit" class="btn btn-primary" disabled>{{$status}}</button>
+          <button type="submit" class="btn btn-primary" >{{$status}}</button>
         </form>
+        @elseif ($status == 'PENDING' or $status == 'REJECTED' or $status == 'RETURNED')
+          <button type="submit" class="btn btn-primary" disabled>{{$status}}</button>
         @elseif ($status = 'ACCEPTED')
           <form action="{{ route('return') }}" method="GET">
             <input type="hidden" name="book_id" required value="{{$book->id}}"/>
