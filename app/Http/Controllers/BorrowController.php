@@ -23,7 +23,6 @@ class BorrowController extends Controller
     {
         //
         $data['borrows'] = Borrow::orderBy('id')->paginate(8);
-        error_log($data['borrows'][0]['status ']);
         return view('borrows.index', $data);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
 use App\Models\Book;
+use App\Models\Borrow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,8 +94,18 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+        $status = 'Request for Borrowing';
+        $user_id = Auth::id();
+        $borrows = Borrow::where('reader_id', $user_id)->get();
+        foreach ($borrows as $rent) {
+            if ($rent['book_id'] == $book->id) {
+                $status = $rent['status'];
+            }
+        }
+
         return view('books/detail', [
-            'book' => $book
+            'book' => $book,
+            'status' => $status
         ]);
     }
 

@@ -22,6 +22,6 @@
       </form>
       <form action="{{ route('create_request') }}" method="GET">
         <input type="hidden" name="book_id" required value="{{$book->id}}"/>
-        <button type="submit" class="btn btn-primary">Request For Borrowing</button>
+        <button type="submit" class="btn btn-primary">{{$status}}</button>
       </form>
 @endsection
