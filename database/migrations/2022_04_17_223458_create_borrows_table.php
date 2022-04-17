@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('reader_id');
             $table->unsignedBigInteger('book_id');
-            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED'])->nullable();
             $table->date('request_processed_at')->nullable();
             $table->unsignedBigInteger('request_managed_by')->nullable();
             $table->date('deadline')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('return_managed_by')->nullable();
             $table->timestamps();
 
-            $table->unique(['reader_id', 'book_id']);
+            $table->unique(['id', 'reader_id', 'book_id']);
             $table->foreign('reader_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
 

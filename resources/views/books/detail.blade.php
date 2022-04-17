@@ -21,10 +21,10 @@
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
 
-        @if ($status == Null)
+        @if ($status == 'Borrow this book' or $status == null)
         <form action="{{ route('create_request') }}" method="GET">
           <input type="hidden" name="book_id" required value="{{$book->id}}"/>
-          <button type="submit" class="btn btn-primary" >{{$status}}</button>
+          <button type="submit" class="btn btn-primary" >Borrow this book</button>
         </form>
         @elseif ($status == 'PENDING' or $status == 'REJECTED' or $status == 'RETURNED')
           <button type="submit" class="btn btn-primary" disabled>{{$status}}</button>
@@ -33,8 +33,6 @@
             <input type="hidden" name="book_id" required value="{{$book->id}}"/>
             <button type="submit" class="btn btn-primary">RETURN</button>
           </form>
-        @else 
-          <button type="submit" class="btn btn-primary">{{$status}}</button>
         @endif
       
 @endsection

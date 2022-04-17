@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Borrow;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\BorrowFormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,7 @@ class BorrowController extends Controller
         $borrow->reader_id = Auth::id();
         $borrow->book_id = $request->book_id;
         $borrow->request_processed_at = Carbon::now();
+        $borrow->status = 'PENDING';
         error_log($borrow);
         $borrow->save();
         return redirect()->route('books.show', $borrow->book_id);
@@ -72,11 +74,20 @@ class BorrowController extends Controller
         # code...
         error_log('incoming');
         error_log($request->id);
-        $borrow = Borrow::where('id', $request->id)->get();
+        $borrow = Borrow::where('id', $request->id)->first();
+        if ($borrow->status == 'PENDING') {
+            
+            $borrow->status = 'ACCEPTED';
+            $borrow->request_managed_by = User::where('id', Auth::id())->first()->id;
+
+        } else if ($borrow->status == 'RETURNED') {
+            $borrow->status = null;
+            $borrow->return_managed_by = User::where('id', Auth::id())->first()->id;
+            error_log('return finished');
+        }
+        
         error_log($borrow);
-        $borrow[0]->status = 'ACCEPTED';
-        error_log($borrow[0]);
-        $borrow[0]->save();
+        $borrow->save();
         error_log('approved');
         return redirect()->route('borrows.index');
     }
@@ -101,13 +112,11 @@ class BorrowController extends Controller
         error_log($request->book_id);
         $borrow = Borrow::where('reader_id', $user_id)->where('book_id', $request->book_id)->first();
         $borrow->status = 'RETURNED';
+        $borrow->returned_at = Carbon::now();
         error_log($borrow);
         $borrow->save();
         error_log('rejected');
-        return view('books/detail', [
-            'book' => $book,
-            'status' => $borrow->status
-        ]);
+        return redirect()->route('books.index');
     }
 
     // /**

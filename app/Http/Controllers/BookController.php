@@ -94,7 +94,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
-        $status = 'Request for Borrowing';
+        $status = null;
         $user_id = Auth::id();
         $borrows = Borrow::where('reader_id', $user_id)->get();
         foreach ($borrows as $rent) {
