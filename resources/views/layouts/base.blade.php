@@ -44,8 +44,14 @@
                 @auth
                     <li class="nav-item">
                         @if  (Auth::user()->is_librarian())
-                            <a class="nav-item nav-link" href="{{ route('borrows.index') }}">Borrows</a>
+                            <a class="nav-item nav-link" href="{{ route('borrows.index') }}">Admin Borrows</a>
                         @endif
+                    </li>
+                @endauth 
+
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ route('rentals') }}">Rentals</a>
                     </li>
                 @endauth 
                 <li class="nav-item">

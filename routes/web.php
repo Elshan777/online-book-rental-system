@@ -37,6 +37,8 @@ Route::get('/create_request', [BorrowController::class, 'create_request'])->name
 Route::get('/approve', [BorrowController::class, 'approve'])->name('approve');
 Route::get('/reject', [BorrowController::class, 'reject'])->name('reject');
 Route::get('/return', [BorrowController::class, 'return'])->name('return');
+Route::get('/rentals', [BorrowController::class, 'rentals'])->name('rentals');
+
 
 Route::resource('/borrows', BorrowController::class);
 

@@ -26,8 +26,23 @@ class BorrowController extends Controller
         $admin_id = Auth::id();
         error_log($admin_id);
         $data['borrows'] =  Borrow::where('request_managed_by', $admin_id)->orwhereNull('request_managed_by')->get();
-        error_log($data['borrows'] );
         return view('borrows.index', $data);
+    }
+
+    public function rentals()
+    {
+        //
+        $user_id = Auth::id();
+        $data['borrows'] =  Borrow::where('reader_id', $user_id)->get();
+
+        // Full book details of borrowed books
+        $book_ids = array();
+        foreach ($data['borrows'] as $borrow ) {
+            array_push($book_ids, $borrow->book_id );
+        }
+        $data['books'] = Book::whereIn('id', $book_ids)->get();
+
+        return view('borrows.user-rental', $data);
     }
 
     // /**
@@ -80,11 +95,24 @@ class BorrowController extends Controller
         error_log($request->deadline);
         $borrow = Borrow::where('id', $request->id)->first();
         if ($borrow->status == 'PENDING') {
+
+            $book = Book::where('id', $borrow->book_id)->first();
             
-            $borrow->status = 'ACCEPTED';
-            $borrow->request_managed_by = User::where('id', Auth::id())->first()->id;
+            if ($book->in_stock>1) {
+                $book->in_stock = $book->in_stock - 1;
+                $book->save();
+                $borrow->status = 'ACCEPTED';
+                $borrow->request_managed_by = User::where('id', Auth::id())->first()->id;
+            } else {
+                return redirect()->route('borrows.reject');
+            }
 
         } else if ($borrow->status == 'RETURNED') {
+
+            $book = Book::where('id', $borrow->book_id)->first();
+            $book->in_stock = $book->in_stock + 1;
+            $book->save();
+
             $borrow->status = null;
             $borrow->return_managed_by = User::where('id', Auth::id())->first()->id;
             error_log('return finished');
