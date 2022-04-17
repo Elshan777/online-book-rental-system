@@ -36,5 +36,11 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'is_librarian' => true
         ]);
+        User::create([
+            'name' => 'Librarian',
+            'email' => 'lib@gmail.com',
+            'password' => Hash::make('12345678'),
+            'is_librarian' => true
+        ]);
     }
 }

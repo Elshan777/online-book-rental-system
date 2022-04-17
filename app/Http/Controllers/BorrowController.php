@@ -23,7 +23,10 @@ class BorrowController extends Controller
     public function index()
     {
         //
-        $data['borrows'] = Borrow::orderBy('id')->paginate(8);
+        $admin_id = Auth::id();
+        error_log($admin_id);
+        $data['borrows'] =  Borrow::where('request_managed_by', $admin_id)->orwhereNull('request_managed_by')->get();
+        error_log($data['borrows'] );
         return view('borrows.index', $data);
     }
 
@@ -74,6 +77,7 @@ class BorrowController extends Controller
         # code...
         error_log('incoming');
         error_log($request->id);
+        error_log($request->deadline);
         $borrow = Borrow::where('id', $request->id)->first();
         if ($borrow->status == 'PENDING') {
             
@@ -86,6 +90,7 @@ class BorrowController extends Controller
             error_log('return finished');
         }
         
+        $borrow->deadline = $request->deadline;
         error_log($borrow);
         $borrow->save();
         error_log('approved');
