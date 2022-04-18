@@ -5,7 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookSearchController;
 use App\Http\Controllers\BorrowController;
-
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +22,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::get('/books', function () {
-//     return view('books.books');
-// });
-
-// Route::get('/books/create', function () {
-//     return view('books.create');
-// });
 
 Route::resource('/books', BookController::class);
 
@@ -42,6 +35,7 @@ Route::get('/rentals', [BorrowController::class, 'rentals'])->name('rentals');
 
 Route::resource('/borrows', BorrowController::class);
 
+Route::get('/main', [Controller::class, 'main'])->name('main');
 
 
 Route::resource('/genres', GenreController::class)->middleware('auth');
