@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('pages');
             $table->string('image_url')->nullable();
             $table->string('language_code')->nullable();
-            $table->string('isbn');
+            $table->string('isbn')->unique();
             $table->integer('in_stock');
             $table->timestamps();
         });

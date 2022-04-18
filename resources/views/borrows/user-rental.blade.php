@@ -44,7 +44,7 @@
             </td>
             <td scope="col">
                 @if ($borrow->status == 'PENDING' or $borrow->status == 'REJECTED' or $borrow->status == 'RETURNED')
-                    <button type="submit" class="btn btn-primary" disabled>{{$status}}</button>
+                    <button type="submit" class="btn btn-primary" disabled>{{$borrow->status}}</button>
                 @elseif ($borrow->status == 'ACCEPTED')
                     <form action="{{ route('return') }}" method="GET">
                         <input type="hidden" name="book_id" required value="{{$borrow->book_id}}"/>

@@ -97,6 +97,21 @@
                 @enderror
             </div>
 
+            <div class="form-group d-flex flex-wrap">
+                @foreach ($genres as $genre)
+                <div class="custom-control custom-switch col-sm-2">
+                    <input
+                        type="checkbox"
+                        name="genres[]"
+                        {{-- id="genre-{{ $genre->id }}" --}}
+                        value="{{ $genre->id }}"
+                        class="custom-control-input"
+                    >
+                    <label class="custom-control-label" for="genre-{{ $genre->id }}">{{ $genre->name }}</label>
+                  </div>
+                @endforeach
+            </div>
+
 
             <div class="form-group">
             <button type="submit" class="btn btn-primary">Add new book</button>

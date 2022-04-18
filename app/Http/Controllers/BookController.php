@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
 use App\Models\Book;
+use App\Models\Genre;
 use App\Models\Borrow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,8 @@ class BookController extends Controller
     public function create()
     {
         //
-        return view('books.create');
+        $data['genres'] = Genre::orderBy('id')->get();
+        return view('books.create', $data);
     }
 
     /**
@@ -47,43 +49,42 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    //     // $validated_data = $request->validated();
-    //     // $book = Book::create($validated_data);
-    //     $request->validate([
-    //         'title' => 'required',
-    //         'authors' => 'required',
-    //         'isbn' => 'required',
-    //         'image_url' => 'nullable',
-    //         'pages' => 'required',
-    //         'language_code' => 'nullable',
-    //         'in_stock' => 'required',
-    //         'description' => 'nullable',
-    //         'released_at' => 'nullable'
-    //     ]);
-    //     $book = new Book;
-    //     $book->title = $request->title;
-    //     $book->authors = $request->authors;
-    //     $book->isbn = $request->isbn;
-    //     $book->image_url = $request->image_url;
-    //     $book->pages = $request->pages;
-    //     $book->language_code = $request->language_code;
-    //     $book->description = $request->description;
-    //     $book->in_stock = $request->in_stock;
-    //     $book->released_at = $request->released_at;
-    //     $book->save();
-
-    //     return redirect()->route('books.index')->with('success','Book has been added successfully.');
-    // }
-
-    public function store(BookFormRequest $request)
+    public function store(Request $request)
     {
-        $validated_data = $request->validated();
-        $book = Book::create($validated_data);
-        return redirect()->route('books.show', $book->id);
+        $request->validate([
+            'title' => 'required',
+            'authors' => 'required',
+            'isbn' => 'required',
+            'image_url' => 'nullable',
+            'pages' => 'required',
+            'language_code' => 'nullable',
+            'in_stock' => 'required',
+            'description' => 'nullable',
+            'released_at' => 'nullable'
+        ]);
+        $book = new Book;
+        $book->title = $request->title;
+        $book->authors = $request->authors;
+        $book->isbn = $request->isbn;
+        $book->image_url = $request->image_url;
+        $book->pages = $request->pages;
+        $book->language_code = $request->language_code;
+        $book->description = $request->description;
+        $book->in_stock = $request->in_stock;
+        $book->released_at = $request->released_at;
+        $book->save();
+
+        $book->genres()->attach($request['genres'] ?? []);
+
+        return redirect()->route('books.index')->with('success','Book has been added successfully.');
     }
+
+    // public function store(BookFormRequest $request)
+    // {
+    //     $validated_data = $request->validated();
+    //     $book = Book::create($validated_data);
+    //     return redirect()->route('books.show', $book->id);
+    // }
 
     /**
      * Display the specified resource.
