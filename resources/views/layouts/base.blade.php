@@ -34,6 +34,13 @@
                     </a>
                     @endif
                 </li>
+                @auth
+                    <li class="nav-item">
+                        @if  (Auth::user()->is_librarian())
+                            <a class="nav-item nav-link" href="{{ route('main') }}">Home</a>
+                        @endif
+                    </li>
+                @endauth
                 <li class="nav-item">
                     @if  (Auth::user())
                         <a class="nav-item nav-link" href="{{ route('books.index') }}">Books</a>
@@ -62,7 +69,7 @@
                 @auth
                     <li class="nav-item">
                         @if  (Auth::user()->is_librarian())
-                            <a class="nav-item nav-link" href="{{ route('borrows.index') }}">Admin Borrows</a>
+                            <a class="nav-item nav-link" href="{{ route('borrows.index') }}">Requested Borrows</a>
                         @endif
                     </li>
                 @endauth 

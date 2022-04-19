@@ -14,13 +14,15 @@
 
       <p>Date of release: {{ $book->released_at }}</p>
 
-      <a href="{{ route('books.edit', $book->id) }}"  class="btn btn-primary">Edit</a>
-      <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">
-        @method('DELETE')
-        @csrf
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
+      @if (Auth::user() and Auth::user()->is_librarian())
+        <a href="{{ route('books.edit', $book->id) }}"  class="btn btn-primary">Edit</a>
 
+        <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline">
+          @method('DELETE')
+          @csrf
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      @endif
         @if ($status == 'Borrow this book' or $status == null)
         <form action="{{ route('create_request') }}" method="GET">
           <input type="hidden" name="book_id" required value="{{$book->id}}"/>
