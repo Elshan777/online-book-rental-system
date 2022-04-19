@@ -108,8 +108,10 @@
                     <input
                         type="checkbox"
                         name="genres[]"
-                        {{-- id="genre-{{ $genre->id }}" --}}
+                        id="genres-{{ $genre->id }}"
                         value="{{ $genre->id }}"
+                        {{-- value="{{ old('genres[]',  $genre->id) }}" --}}
+                        @if ($book->genres->contains($genre->id)) checked @endif
                         class="custom-control-input"
                     >
                     <label class="custom-control-label" for="genre-{{ $genre->id }}">{{ $genre->name }}</label>

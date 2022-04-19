@@ -119,9 +119,11 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
-        $this->authorize('edit', $book);
+        // $this->authorize('edit', $book);
+        $genres = Genre::orderBy('id')->get();
         return view('books/edit', [
-            'book' => $book
+            'book' => $book,
+            'genres' => $genres
         ]);
     }
 
@@ -132,11 +134,23 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update( Book $book, BookFormRequest $request )
+    public function update( Book $book, Request $request )
     {
         //
-        $validated_data = $request->validated();
+        // $validated_data = $request->validated();
+        $validated_data = $request->validate([
+            'title' => 'required',
+            'authors' => 'required',
+            'isbn' => 'required',
+            'image_url' => 'nullable',
+            'pages' => 'required',
+            'language_code' => 'nullable',
+            'in_stock' => 'required',
+            'description' => 'nullable',
+            'released_at' => 'nullable'
+        ]);
         $book->update($validated_data);
+        $book->genres()->attach($request['genres'] ?? []);
         return redirect()->route('books.show', $book->id);
     }
 
