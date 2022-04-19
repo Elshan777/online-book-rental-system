@@ -11,8 +11,13 @@
 
       <p>In stock: {{ $book->in_stock}}</p>
       <p>ISBN {{ $book->isbn }}</p>
-
       <p>Date of release: {{ $book->released_at }}</p>
+
+      <h5><b> Genres:  </b></h5>
+      @foreach ($genres as $genre)
+          <p>{{ $genre}} </p>
+      @endforeach
+
 
       @if (Auth::user() and Auth::user()->is_librarian())
         <a href="{{ route('books.edit', $book->id) }}"  class="btn btn-primary">Edit</a>

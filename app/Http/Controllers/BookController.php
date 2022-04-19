@@ -103,10 +103,18 @@ class BookController extends Controller
                 $status = $rent['status'];
             }
         }
+        $genres = array();
+        foreach ($book->genres()->get() as  $value) {
+            # code...
+            array_push($genres, $value['name']);
+        }
+        error_log($book->genres()->get());
+        // $genres = 
 
         return view('books/detail', [
             'book' => $book,
-            'status' => $status
+            'status' => $status,
+            'genres' => $genres
         ]);
     }
 
