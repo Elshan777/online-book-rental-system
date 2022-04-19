@@ -31,14 +31,19 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Tamas Kovacs',
+            'email' => 'tamas@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+        User::create([
+            'name' => 'Paul Librarian',
+            'email' => 'admpaulin@gmail.com',
             'password' => Hash::make('12345678'),
             'is_librarian' => true
         ]);
         User::create([
-            'name' => 'Librarian',
-            'email' => 'lib@gmail.com',
+            'name' => 'Mike Librarian',
+            'email' => 'mike@gmail.com',
             'password' => Hash::make('12345678'),
             'is_librarian' => true
         ]);
